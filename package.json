@@ -1,6 +1,6 @@
 {
   "name": "react-visibility-hooks",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Tiny, SSR-safe React hooks for page visibility, idle detection, smart polling and auto-pause video",
   "type": "module",
   "main": "./dist/index.cjs",
