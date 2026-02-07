@@ -1,7 +1,7 @@
 {
   "name": "react-visibility-hooks",
-  "version": "1.0.11",
-  "description": "Tiny, SSR-safe React hooks for page visibility, idle detection and smart polling",
+  "version": "1.0.12",
+  "description": "Tiny, SSR-safe React hooks for page visibility, idle detection, smart polling and auto-pause video",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -14,25 +14,42 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "README.md"
   ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
-    "test": "jest",
-    "prepare": "npm run build"
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "eslint src __tests__",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build",
+    "prepare": "npm run build",
+    "size": "size-limit"
   },
   "keywords": [
     "react",
     "react-hooks",
+    "hooks",
     "visibility",
     "page-visibility",
+    "visibilitychange",
     "idle-detection",
+    "idle",
     "performance",
     "react-performance",
     "smart-polling",
+    "polling",
+    "auto-pause",
+    "video",
     "analytics",
-    "react-utils"
+    "react-utils",
+    "ssr",
+    "ssr-safe",
+    "nextjs",
+    "typescript"
   ],
   "author": "Aniket Raj",
   "license": "MIT",
@@ -45,17 +62,35 @@
     "url": "https://github.com/exewhyz/react-visibility-hooks/issues"
   },
   "peerDependencies": {
-    "react": ">=18"
+    "react": ">=16.8.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    }
   },
   "devDependencies": {
+    "@size-limit/preset-small-lib": "^11.0.0",
     "@testing-library/react": "^16.3.2",
     "@types/jest": "^30.0.0",
     "@types/react": "^19.2.13",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
     "jsdom": "^28.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "size-limit": "^11.0.0",
     "ts-jest": "^29.4.6",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
+  },
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "limit": "1.5 kB"
+    }
+  ],
+  "engines": {
+    "node": ">=16"
   }
 }

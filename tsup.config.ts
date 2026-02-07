@@ -7,5 +7,10 @@ export default defineConfig({
   sourcemap: true,
   minify: true,
   clean: true,
-  external: ["react"]
+  treeshake: true,
+  splitting: false,
+  external: ["react"],
+  banner: {
+    js: '"use client";',
+  },
 });
