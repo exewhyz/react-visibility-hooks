@@ -4,8 +4,8 @@ export default defineConfig({
   entry: ["src/index.ts"],
   format: ["esm", "cjs"],
   dts: true,
-  minify: true,
   sourcemap: true,
+  minify: true,
   clean: true,
-  external: ["react"]
+  external: ["react", "@tanstack/react-query"] // ← IMPORTANT
 });
