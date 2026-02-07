@@ -7,9 +7,7 @@ import { useDocVisible } from "./useDocVisible";
  *
  * Only resumes if the video was playing before it was paused by this hook.
  */
-export function useAutoPauseVideo(
-  ref: React.RefObject<HTMLVideoElement | null>,
-): void {
+export function useAutoPauseVideo(ref: React.RefObject<HTMLVideoElement | null>): void {
   const visible = useDocVisible();
   const wasPausedByUs = useRef(false);
 

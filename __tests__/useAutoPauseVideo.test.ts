@@ -43,9 +43,17 @@ describe("useAutoPauseVideo", () => {
     const play = jest.fn().mockResolvedValue(undefined);
     let paused = false;
     const fakeVideo = {
-      pause: () => { paused = true; pause(); },
-      play: () => { paused = false; return play(); },
-      get paused() { return paused; },
+      pause: () => {
+        paused = true;
+        pause();
+      },
+      play: () => {
+        paused = false;
+        return play();
+      },
+      get paused() {
+        return paused;
+      },
     } as unknown as HTMLVideoElement;
 
     renderHook(() => {

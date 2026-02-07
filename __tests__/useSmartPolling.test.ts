@@ -21,9 +21,7 @@ afterEach(() => {
 describe("useSmartPolling", () => {
   it("performs initial fetch and returns data", async () => {
     const fetchFn = jest.fn().mockResolvedValue({ count: 1 });
-    const { result } = renderHook(() =>
-      useSmartPolling(fetchFn, { interval: 5000 }),
-    );
+    const { result } = renderHook(() => useSmartPolling(fetchFn, { interval: 5000 }));
 
     expect(result.current.isLoading).toBe(true);
 
@@ -56,9 +54,7 @@ describe("useSmartPolling", () => {
 
   it("stops polling when disabled", async () => {
     const fetchFn = jest.fn().mockResolvedValue("ok");
-    renderHook(() =>
-      useSmartPolling(fetchFn, { enabled: false, interval: 1000 }),
-    );
+    renderHook(() => useSmartPolling(fetchFn, { enabled: false, interval: 1000 }));
 
     // Initial fetch fires
     await act(async () => {
@@ -79,9 +75,7 @@ describe("useSmartPolling", () => {
 
   it("polls at the given interval", async () => {
     const fetchFn = jest.fn().mockResolvedValue("ok");
-    renderHook(() =>
-      useSmartPolling(fetchFn, { interval: 1000 }),
-    );
+    renderHook(() => useSmartPolling(fetchFn, { interval: 1000 }));
 
     await act(async () => {
       await jest.advanceTimersByTimeAsync(0);
