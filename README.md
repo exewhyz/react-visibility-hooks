@@ -1,19 +1,23 @@
 # react-visibility-hooks
 
-> Tiny, SSR-safe React hooks for page visibility, idle detection and smart polling
+> Tiny, SSR-safe React hooks for page visibility, idle detection, smart polling and auto-pause video
 
 [![npm version](https://img.shields.io/npm/v/react-visibility-hooks.svg)](https://www.npmjs.com/package/react-visibility-hooks)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/react-visibility-hooks)](https://bundlephobia.com/package/react-visibility-hooks)
+[![CI](https://github.com/exewhyz/react-visibility-hooks/actions/workflows/ci.yml/badge.svg)](https://github.com/exewhyz/react-visibility-hooks/actions/workflows/ci.yml)
 
-A collection of lightweight React hooks that help you build performance-conscious applications by detecting page visibility, user idle state, and managing smart polling strategies.
+A collection of lightweight React hooks that help you build performance-conscious applications by detecting page visibility, user idle state, auto-pausing video, and managing smart polling strategies.
 
 ## Features
 
-- 🪶 **Lightweight** - Zero dependencies (except peer dependencies)
-- 🔒 **SSR-safe** - Works seamlessly with Next.js, Remix, and other SSR frameworks
+- 🪶 **Lightweight** - ~822 B brotlied, zero dependencies
+- 🔒 **SSR-safe** - Works seamlessly with Next.js (App Router & Pages Router), Remix, and other SSR frameworks
 - 📦 **Tree-shakeable** - Import only what you need
-- 🎯 **TypeScript** - Fully typed with TypeScript
+- 🎯 **TypeScript** - Fully typed with exported interfaces
 - ⚡ **Performance-focused** - Pause expensive operations when users aren't looking
+- 🎬 **Auto-pause video** - Pause/resume `<video>` elements on tab visibility
+- 🔄 **Smart polling** - Visibility-aware data fetching with dedup
 
 ## Installation
 
@@ -28,6 +32,7 @@ npm install react-visibility-hooks
 Detect when the browser tab is visible or hidden using the [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API).
 
 **Use cases:**
+
 - Pause animations when tab is hidden
 - Stop fetching data when user isn't viewing the page
 - Save battery and resources
@@ -48,9 +53,10 @@ function MyComponent() {
 
 ### `useIdleVisibility`
 
-Detect when the user is idle (no mouse movement or keyboard activity) combined with page visibility state.
+Detect when the user is idle (no mouse, keyboard, pointer, scroll, or touch activity) combined with page visibility state.
 
 **Use cases:**
+
 - Show "Are you still there?" prompts
 - Auto-pause media after inactivity
 - Reduce background activity when user is away
@@ -71,13 +77,15 @@ function MyComponent() {
 ```
 
 **Parameters:**
+
 - `timeout` (optional): Milliseconds of inactivity before user is considered idle (default: 60000)
 
 ### `useAutoPauseVideo`
 
-Automatically pause and resume videos based on page visibility.
+Automatically pause and resume videos based on page visibility. Only resumes playback if the video was actually playing before the tab was hidden — it won't override a user's manual pause.
 
 **Use cases:**
+
 - Auto-pause videos when user switches tabs
 - Better UX for video-heavy applications
 - Save bandwidth and resources
@@ -101,6 +109,7 @@ function VideoPlayer() {
 Visibility-aware polling built with plain React — no external dependencies. Automatically pauses when the tab is hidden, resumes when visible, and skips re-renders when data hasn't changed.
 
 **Use cases:**
+
 - Real-time dashboards
 - Live notifications
 - Auto-refresh data feeds
@@ -142,9 +151,10 @@ function Dashboard() {
 | `isLoading` | `boolean` | `true` until the first fetch completes |
 | `isError` | `boolean` | `true` if the last fetch threw |
 | `error` | `Error \| undefined` | The error object, if any |
-| `refetch` | `() => void` | Manually trigger a fetch |
+| `refetch` | `() => Promise<void>` | Manually trigger a fetch |
 
 **Optimizations:**
+
 - Skips re-renders when polled data is identical to the previous result
 - Prevents concurrent fetches from overlapping
 - Polling pauses automatically when the tab is hidden and resumes when visible
@@ -152,6 +162,7 @@ function Dashboard() {
 ## SSR Support
 
 All hooks are SSR-safe and will work correctly with:
+
 - Next.js (App Router & Pages Router)
 - Remix
 - Gatsby
@@ -166,8 +177,9 @@ This package is written in TypeScript and includes type definitions out of the b
 ## Browser Support
 
 Works in all modern browsers that support:
+
 - [Page Visibility API](https://caniuse.com/pagevisibility)
-- React 18+
+- React >=16.8.0 (hooks)
 
 ## Examples
 
@@ -215,7 +227,7 @@ function IdleWarning() {
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) before submitting a Pull Request.
 
 ## License
 
@@ -226,3 +238,4 @@ MIT © [Aniket Raj](https://github.com/exewhyz)
 - [GitHub Repository](https://github.com/exewhyz/react-visibility-hooks)
 - [Issue Tracker](https://github.com/exewhyz/react-visibility-hooks/issues)
 - [NPM Package](https://www.npmjs.com/package/react-visibility-hooks)
+- [Changelog](CHANGELOG.md)
