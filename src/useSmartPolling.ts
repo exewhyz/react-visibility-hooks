@@ -27,25 +27,37 @@ export function useSmartPolling<T = any>(
   const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(
     undefined,
   );
+  const isFetchingRef = useRef(false);
+  const lastJsonRef = useRef<string | undefined>(undefined);
 
   fetchRef.current = fetchFn;
 
   const execute = useCallback(async () => {
+    // Prevent concurrent fetches from overlapping intervals
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
+
     try {
       const result = await fetchRef.current();
-      setData(result);
-      setError(undefined);
+
+      // Only update state if data actually changed (avoids unnecessary re-renders)
+      const json = JSON.stringify(result);
+      if (json !== lastJsonRef.current) {
+        lastJsonRef.current = json;
+        setData(result);
+      }
+      setError((prev) => (prev !== undefined ? undefined : prev));
     } catch (err) {
       setError(err instanceof Error ? err : new Error(String(err)));
     } finally {
-      setIsLoading(false);
+      isFetchingRef.current = false;
+      setIsLoading((prev) => (prev ? false : prev));
     }
   }, []);
 
   // Initial fetch
   useEffect(() => {
     if (!enabled) return;
-    setIsLoading(true);
     execute();
   }, [enabled, execute]);
 

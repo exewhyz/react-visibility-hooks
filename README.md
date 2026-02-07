@@ -98,7 +98,7 @@ function VideoPlayer() {
 
 ### `useSmartPolling`
 
-Smart polling that only fetches data when the page is visible. Zero additional dependencies required.
+Visibility-aware polling built with plain React — no external dependencies. Automatically pauses when the tab is hidden, resumes when visible, and skips re-renders when data hasn't changed.
 
 **Use cases:**
 - Real-time dashboards
@@ -109,22 +109,45 @@ Smart polling that only fetches data when the page is visible. Zero additional d
 import { useSmartPolling } from 'react-visibility-hooks';
 
 function Dashboard() {
-  const { data, isLoading } = useSmartPolling(async () => {
-    const response = await fetch('/api/stats');
-    return response.json();
-  });
+  const { data, isLoading, isError, error, refetch } = useSmartPolling(
+    async () => {
+      const response = await fetch('/api/stats');
+      return response.json();
+    },
+    { interval: 3000 }
+  );
 
   if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error?.message}</div>;
 
-  return <div>{JSON.stringify(data)}</div>;
+  return (
+    <div>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <button onClick={refetch}>Refresh now</button>
+    </div>
+  );
 }
 ```
 
 **Options:**
-- `interval` (optional): Polling interval in milliseconds (default: 5000)
-- `enabled` (optional): Enable/disable polling (default: true)
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `interval` | `number` | `5000` | Polling interval in milliseconds |
+| `enabled` | `boolean` | `true` | Enable/disable polling |
 
-Polling is automatically paused when the tab is hidden and resumes when visible.
+**Returns:**
+| Property | Type | Description |
+|----------|------|-------------|
+| `data` | `T \| undefined` | The latest fetched data |
+| `isLoading` | `boolean` | `true` until the first fetch completes |
+| `isError` | `boolean` | `true` if the last fetch threw |
+| `error` | `Error \| undefined` | The error object, if any |
+| `refetch` | `() => void` | Manually trigger a fetch |
+
+**Optimizations:**
+- Skips re-renders when polled data is identical to the previous result
+- Prevents concurrent fetches from overlapping
+- Polling pauses automatically when the tab is hidden and resumes when visible
 
 ## SSR Support
 
