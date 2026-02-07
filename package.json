@@ -1,33 +1,26 @@
 {
   "name": "react-visibility-hooks",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Tiny, SSR-safe React hooks for page visibility, idle detection and smart polling",
-
   "type": "module",
-
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     }
   },
-
   "files": [
     "dist"
   ],
-
   "sideEffects": false,
-
   "scripts": {
     "build": "tsup",
     "test": "jest",
     "prepare": "npm run build"
   },
-
   "keywords": [
     "react",
     "react-hooks",
@@ -40,31 +33,25 @@
     "analytics",
     "react-utils"
   ],
-
   "author": "Aniket Raj",
   "license": "MIT",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/exewhyz/react-visibility-hooks.git"
   },
-
   "homepage": "https://github.com/exewhyz/react-visibility-hooks#readme",
   "bugs": {
     "url": "https://github.com/exewhyz/react-visibility-hooks/issues"
   },
-
   "peerDependencies": {
     "react": ">=18",
     "@tanstack/react-query": ">=4"
   },
-
   "peerDependenciesMeta": {
     "@tanstack/react-query": {
       "optional": true
     }
   },
-
   "devDependencies": {
     "@testing-library/react": "^16.3.2",
     "@types/jest": "^30.0.0",
