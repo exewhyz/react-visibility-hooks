@@ -45,13 +45,7 @@
     "url": "https://github.com/exewhyz/react-visibility-hooks/issues"
   },
   "peerDependencies": {
-    "@tanstack/react-query": ">=4",
     "react": ">=18"
-  },
-  "peerDependenciesMeta": {
-    "@tanstack/react-query": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.2",
