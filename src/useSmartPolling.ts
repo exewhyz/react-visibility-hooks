@@ -55,11 +55,13 @@ export function useSmartPolling<T = any>(
     }
   }, []);
 
-  // Initial fetch
+  // Initial fetch — always runs once regardless of `enabled`
+  const hasFetchedRef = useRef(false);
   useEffect(() => {
-    if (!enabled) return;
+    if (hasFetchedRef.current) return;
+    hasFetchedRef.current = true;
     execute();
-  }, [enabled, execute]);
+  }, [execute]);
 
   // Polling — only when visible and enabled
   useEffect(() => {
