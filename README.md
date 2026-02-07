@@ -21,12 +21,6 @@ A collection of lightweight React hooks that help you build performance-consciou
 npm install react-visibility-hooks
 ```
 
-For `useSmartPolling`, you'll also need to install `@tanstack/react-query`:
-
-```bash
-npm install @tanstack/react-query
-```
-
 ## Hooks
 
 ### `useDocVisible`
@@ -104,7 +98,7 @@ function VideoPlayer() {
 
 ### `useSmartPolling`
 
-Smart polling that only refetches data when the page is visible. Built on top of [@tanstack/react-query](https://tanstack.com/query).
+Smart polling that only fetches data when the page is visible. Zero additional dependencies required.
 
 **Use cases:**
 - Real-time dashboards
@@ -126,7 +120,11 @@ function Dashboard() {
 }
 ```
 
-**Note:** This hook requires `@tanstack/react-query` to be installed. Polling is automatically paused when the tab is hidden and resumes when visible (default interval: 5 seconds).
+**Options:**
+- `interval` (optional): Polling interval in milliseconds (default: 5000)
+- `enabled` (optional): Enable/disable polling (default: true)
+
+Polling is automatically paused when the tab is hidden and resumes when visible.
 
 ## SSR Support
 

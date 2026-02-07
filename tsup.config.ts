@@ -7,5 +7,5 @@ export default defineConfig({
   sourcemap: true,
   minify: true,
   clean: true,
-  external: ["react", "@tanstack/react-query"] // ← IMPORTANT
+  external: ["react"]
 });
