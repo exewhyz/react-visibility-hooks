@@ -25,9 +25,9 @@
     "test:watch": "jest --watch",
     "lint": "eslint src __tests__",
     "format": "prettier --write \"src/**/*.ts\" \"__tests__/**/*.ts\" \"*.json\" \"*.js\" \"*.ts\" \"*.mjs\"",
-    "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run typecheck && npm run test && npm run build",
     "prepare": "npm run build",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run lint && npm run format && npm run typecheck && npm run test && npm run build",
     "size": "size-limit"
   },
   "keywords": [
