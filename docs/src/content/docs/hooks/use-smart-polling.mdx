@@ -1,0 +1,69 @@
+---
+title: useSmartPolling – Visibility-Aware Data Polling Hook for React
+description: useSmartPolling provides intelligent, visibility-aware data polling with request deduplication. Automatically pauses polling when the tab is hidden. SSR-safe, TypeScript-first.
+---
+
+## Overview
+
+Polls an async function on an interval. Pauses when the tab is hidden, resumes when visible, and skips re-renders when data hasn't changed (shallow JSON comparison). Prevents overlapping fetches.
+
+The initial fetch always fires immediately, regardless of the `enabled` flag.
+
+## Usage
+
+```tsx
+import { useSmartPolling } from "react-visibility-hooks";
+
+function Dashboard() {
+  const { data, isLoading, isError, error, refetch } = useSmartPolling(
+    () => fetch("/api/stats").then((r) => r.json()),
+    { interval: 3000 },
+  );
+
+  if (isLoading) return <p>Loading…</p>;
+  if (isError) return <p>Error: {error?.message}</p>;
+
+  return (
+    <div>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <button onClick={refetch}>Refresh now</button>
+    </div>
+  );
+}
+```
+
+### Conditional polling
+
+```tsx
+const { data } = useSmartPolling(fetchData, {
+  interval: 5000,
+  enabled: user.isLoggedIn, // only poll when logged in
+});
+```
+
+## API
+
+### Parameters
+
+| Parameter | Type                   | Description                   |
+| --------- | ---------------------- | ----------------------------- |
+| `fetchFn` | `() => Promise<T>`     | Async function returning data |
+| `options` | `SmartPollingOptions?` | Optional configuration        |
+
+### Options (`SmartPollingOptions`)
+
+| Option     | Type      | Default | Description                                           |
+| ---------- | --------- | ------- | ----------------------------------------------------- |
+| `interval` | `number`  | `5000`  | Polling interval in ms                                |
+| `enabled`  | `boolean` | `true`  | Enable / disable polling. Initial fetch always fires. |
+
+### Returns (`SmartPollingResult<T>`)
+
+| Property    | Type                  | Description                            |
+| ----------- | --------------------- | -------------------------------------- |
+| `data`      | `T \| undefined`      | The latest fetched data                |
+| `isLoading` | `boolean`             | `true` until the first fetch completes |
+| `isError`   | `boolean`             | `true` if the last fetch threw         |
+| `error`     | `Error \| undefined`  | The error object, if any               |
+| `refetch`   | `() => Promise<void>` | Manually trigger a fetch               |
+

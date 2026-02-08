@@ -1,0 +1,64 @@
+---
+title: useNetworkAwarePolling – Network-Aware Smart Polling for React
+description: useNetworkAwarePolling adapts polling intervals based on network connection quality and page visibility. Reduces unnecessary requests on slow connections. SSR-safe React hook.
+---
+
+## Overview
+
+Extends [`useSmartPolling`](/hooks/use-smart-polling/) with network awareness. Pauses when offline, and automatically increases the polling interval on slow connections (2g / slow-2g).
+
+## Usage
+
+```tsx
+import { useNetworkAwarePolling } from "react-visibility-hooks";
+
+function LiveFeed() {
+  const { data, isOnline, effectiveInterval } = useNetworkAwarePolling(
+    () => fetch("/api/feed").then((r) => r.json()),
+    { interval: 5000, slowMultiplier: 3 },
+  );
+
+  return (
+    <div>
+      <p>Status: {isOnline ? "🟢 Online" : "🔴 Offline"}</p>
+      <p>Polling every {effectiveInterval / 1000}s</p>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+}
+```
+
+## API
+
+### Parameters
+
+| Parameter | Type                          | Description                   |
+| --------- | ----------------------------- | ----------------------------- |
+| `fetchFn` | `() => Promise<T>`            | Async function returning data |
+| `options` | `NetworkAwarePollingOptions?` | Optional configuration        |
+
+### Options (`NetworkAwarePollingOptions`)
+
+Extends `SmartPollingOptions`:
+
+| Option           | Type      | Default | Description                                  |
+| ---------------- | --------- | ------- | -------------------------------------------- |
+| `interval`       | `number`  | `5000`  | Base polling interval in ms                  |
+| `enabled`        | `boolean` | `true`  | Enable / disable polling                     |
+| `slowMultiplier` | `number`  | `3`     | Multiplier applied on 2g/slow-2g connections |
+| `pauseOffline`   | `boolean` | `true`  | Pause polling when the browser is offline    |
+
+### Returns (`NetworkAwarePollingResult<T>`)
+
+Inherits all properties from `SmartPollingResult<T>` plus:
+
+| Property            | Type                  | Description                                      |
+| ------------------- | --------------------- | ------------------------------------------------ |
+| `data`              | `T \| undefined`      | The latest fetched data                          |
+| `isLoading`         | `boolean`             | `true` until the first fetch completes           |
+| `isError`           | `boolean`             | `true` if the last fetch threw                   |
+| `error`             | `Error \| undefined`  | The error object, if any                         |
+| `refetch`           | `() => Promise<void>` | Manually trigger a fetch                         |
+| `isOnline`          | `boolean`             | `true` when the browser reports being online     |
+| `effectiveInterval` | `number`              | Actual polling interval after network adjustment |
+

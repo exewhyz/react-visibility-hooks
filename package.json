@@ -28,7 +28,10 @@
     "prepare": "npm run build",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run lint && npm run format && npm run typecheck && npm run test && npm run build",
-    "size": "size-limit"
+    "size": "size-limit",
+    "bench": "npx tsx benchmarks/rerenders.bench.ts",
+    "docs:dev": "cd docs && npm run dev",
+    "docs:build": "cd docs && npm run build"
   },
   "keywords": [
     "react",

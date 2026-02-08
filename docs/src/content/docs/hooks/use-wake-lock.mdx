@@ -1,0 +1,54 @@
+---
+title: useWakeLock – Screen Wake Lock Hook for React
+description: useWakeLock prevents screen dimming and device sleep using the Screen Wake Lock API. Ideal for presentations, video players, and kiosk apps. SSR-safe React hook.
+---
+
+## Overview
+
+Manages the [Screen Wake Lock API](https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API). Automatically re-acquires on tab re-focus and cleans up on unmount. SSR-safe — `isSupported` will be `false` on the server.
+
+## Usage
+
+```tsx
+import { useWakeLock } from "react-visibility-hooks";
+
+function PresentationMode() {
+  const { isActive, isSupported, request, release } = useWakeLock();
+
+  if (!isSupported) return <p>Wake Lock not supported</p>;
+
+  return (
+    <div>
+      <p>Screen lock: {isActive ? "ON" : "OFF"}</p>
+      <button onClick={isActive ? release : request}>
+        {isActive ? "Allow screen lock" : "Keep screen on"}
+      </button>
+    </div>
+  );
+}
+```
+
+### Disable auto-reacquire
+
+```tsx
+// Won't re-request when switching tabs back
+const { isActive, request, release } = useWakeLock(false);
+```
+
+## API
+
+### Parameters
+
+| Parameter       | Type      | Default | Description                                        |
+| --------------- | --------- | ------- | -------------------------------------------------- |
+| `autoReacquire` | `boolean` | `true`  | Re-request lock when the tab becomes visible again |
+
+### Returns (`WakeLockResult`)
+
+| Property      | Type                  | Description                                          |
+| ------------- | --------------------- | ---------------------------------------------------- |
+| `isActive`    | `boolean`             | `true` while a Wake Lock is held                     |
+| `request`     | `() => Promise<void>` | Request the screen Wake Lock. No-ops if unsupported. |
+| `release`     | `() => Promise<void>` | Release the current Wake Lock                        |
+| `isSupported` | `boolean`             | `true` when the Screen Wake Lock API is available    |
+

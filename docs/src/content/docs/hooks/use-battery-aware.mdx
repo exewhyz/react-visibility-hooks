@@ -1,0 +1,63 @@
+---
+title: useBatteryAware – Battery Status Hook for React
+description: useBatteryAware monitors device battery level and charging state using the Battery Status API. Adapt your React app's behavior to save power. SSR-safe, TypeScript-first.
+---
+
+## Overview
+
+Exposes device battery status via the [Battery Status API](https://developer.mozilla.org/en-US/docs/Web/API/Battery_Status_API). Reacts to real-time `chargingchange` and `levelchange` events. SSR-safe with optimistic defaults (charging, 100%).
+
+## Usage
+
+```tsx
+import { useBatteryAware } from "react-visibility-hooks";
+
+function BatteryIndicator() {
+  const { charging, level, isLowBattery, isSupported } = useBatteryAware(0.15);
+
+  if (!isSupported) return null;
+
+  return (
+    <div>
+      <p>
+        🔋 {Math.round(level * 100)}%{charging ? " ⚡ Charging" : ""}
+      </p>
+      {isLowBattery && <p>⚠️ Low battery — reducing activity</p>}
+    </div>
+  );
+}
+```
+
+### Reduce polling on low battery
+
+```tsx
+import { useBatteryAware, useSmartPolling } from "react-visibility-hooks";
+
+function SmartDashboard() {
+  const { isLowBattery } = useBatteryAware();
+
+  const { data } = useSmartPolling(fetchData, {
+    interval: isLowBattery ? 30_000 : 5_000,
+  });
+
+  return <div>{/* render data */}</div>;
+}
+```
+
+## API
+
+### Parameters
+
+| Parameter      | Type     | Default | Description                                      |
+| -------------- | -------- | ------- | ------------------------------------------------ |
+| `lowThreshold` | `number` | `0.15`  | Level (0–1) below which `isLowBattery` is `true` |
+
+### Returns (`BatteryState`)
+
+| Property       | Type      | Description                                           |
+| -------------- | --------- | ----------------------------------------------------- |
+| `charging`     | `boolean` | `true` when the device is plugged in                  |
+| `level`        | `number`  | Battery level between 0 and 1                         |
+| `isLowBattery` | `boolean` | `true` when not charging and level is below threshold |
+| `isSupported`  | `boolean` | `true` when the Battery Status API is available       |
+

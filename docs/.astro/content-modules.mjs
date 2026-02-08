@@ -1,0 +1,17 @@
+
+export default new Map([
+["src/content/docs/installation.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Finstallation.mdx&astroContentModuleFlag=true")],
+["src/content/docs/advanced/benchmarks.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fadvanced%2Fbenchmarks.mdx&astroContentModuleFlag=true")],
+["src/content/docs/advanced/ssr.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fadvanced%2Fssr.mdx&astroContentModuleFlag=true")],
+["src/content/docs/advanced/combining-hooks.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fadvanced%2Fcombining-hooks.mdx&astroContentModuleFlag=true")],
+["src/content/docs/hooks/use-idle-visibility.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fhooks%2Fuse-idle-visibility.mdx&astroContentModuleFlag=true")],
+["src/content/docs/hooks/use-doc-visible.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fhooks%2Fuse-doc-visible.mdx&astroContentModuleFlag=true")],
+["src/content/docs/hooks/use-inactivity-timeout.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fhooks%2Fuse-inactivity-timeout.mdx&astroContentModuleFlag=true")],
+["src/content/docs/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/docs/hooks/use-auto-pause-video.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fhooks%2Fuse-auto-pause-video.mdx&astroContentModuleFlag=true")],
+["src/content/docs/hooks/use-battery-aware.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fhooks%2Fuse-battery-aware.mdx&astroContentModuleFlag=true")],
+["src/content/docs/hooks/use-network-aware-polling.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fhooks%2Fuse-network-aware-polling.mdx&astroContentModuleFlag=true")],
+["src/content/docs/hooks/use-page-focus-effect.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fhooks%2Fuse-page-focus-effect.mdx&astroContentModuleFlag=true")],
+["src/content/docs/hooks/use-smart-polling.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fhooks%2Fuse-smart-polling.mdx&astroContentModuleFlag=true")],
+["src/content/docs/hooks/use-wake-lock.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fhooks%2Fuse-wake-lock.mdx&astroContentModuleFlag=true")]]);
+		
