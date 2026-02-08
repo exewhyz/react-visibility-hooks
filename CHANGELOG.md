@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New keywords in package.json for discoverability (`wake-lock`, `battery`, `network-aware`, `session-timeout`, `focus-effect`)
 - Browser compatibility table in README
 - "Combining Hooks" example section in README showing hook composition patterns
+- Documentation site built with Astro Starlight, deployed at [visibility-hooks.grettech.com](https://visibility-hooks.grettech.com)
+- SEO optimizations: sitemap, robots.txt, OpenGraph/Twitter Card meta, JSON-LD structured data
+- Per-hook documentation pages with API references and usage examples
+- Advanced guides: combining hooks, SSR support, benchmarks
 
 ### Changed
 

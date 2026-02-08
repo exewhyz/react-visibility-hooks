@@ -2,8 +2,7 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import sitemap from "@astrojs/sitemap";
 
-// Update this after your first Vercel deploy with your actual domain
-const site = "https://react-visibility-hooks.vercel.app";
+const site = "https://visibility-hooks.grettech.com";
 
 export default defineConfig({
   site,
