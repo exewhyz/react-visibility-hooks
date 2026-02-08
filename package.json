@@ -1,7 +1,7 @@
 {
   "name": "react-visibility-hooks",
-  "version": "2.0.0",
-  "description": "Tiny, SSR-safe React hooks for page visibility, idle detection, smart polling and auto-pause video",
+  "version": "3.0.0",
+  "description": "Tiny, SSR-safe React hooks for page visibility, idle detection, smart polling, network awareness, wake lock, battery status and more",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -50,7 +50,14 @@
     "ssr",
     "ssr-safe",
     "nextjs",
-    "typescript"
+    "typescript",
+    "wake-lock",
+    "battery",
+    "network-aware",
+    "session-timeout",
+    "focus-effect",
+    "online-offline",
+    "inactivity"
   ],
   "author": "Aniket Raj",
   "license": "MIT",
@@ -92,7 +99,7 @@
   "size-limit": [
     {
       "path": "dist/index.js",
-      "limit": "1.5 kB"
+      "limit": "3 kB"
     }
   ],
   "engines": {
