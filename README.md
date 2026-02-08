@@ -6,6 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/react-visibility-hooks)](https://bundlephobia.com/package/react-visibility-hooks)
 [![CI](https://github.com/exewhyz/react-visibility-hooks/actions/workflows/ci.yml/badge.svg)](https://github.com/exewhyz/react-visibility-hooks/actions/workflows/ci.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/exewhyz/react-visibility-hooks/badge)](https://scorecard.dev/viewer/?uri=github.com/exewhyz/react-visibility-hooks)
 
 A collection of lightweight React hooks that help you build performance-conscious, resource-aware applications. Detect page visibility, user idle state, network conditions, battery status, and more — with zero dependencies.
 
