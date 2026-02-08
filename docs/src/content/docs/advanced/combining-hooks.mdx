@@ -1,0 +1,115 @@
+---
+title: Combining Hooks – Advanced Patterns
+description: Learn patterns for composing multiple react-visibility-hooks together. Build sophisticated visibility-aware, network-adaptive, battery-conscious React experiences.
+---
+
+## Overview
+
+These hooks are designed to compose. Here are common patterns for combining them.
+
+## Reduce polling on low battery
+
+```tsx
+import { useBatteryAware, useNetworkAwarePolling } from "react-visibility-hooks";
+
+function EfficientDashboard() {
+  const { isLowBattery } = useBatteryAware();
+
+  const { data, isOnline, effectiveInterval } = useNetworkAwarePolling(
+    () => fetch("/api/metrics").then((r) => r.json()),
+    {
+      // Back off when battery is low
+      interval: isLowBattery ? 30_000 : 5_000,
+      slowMultiplier: isLowBattery ? 5 : 3,
+    },
+  );
+
+  return (
+    <div>
+      <p>Online: {isOnline ? "yes" : "no"}</p>
+      <p>Polling every {effectiveInterval / 1000}s</p>
+      {isLowBattery && <p>⚠️ Low battery mode — reduced polling</p>}
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+}
+```
+
+## Session timeout with wake lock
+
+Keep the screen on during the warning countdown so the user can see it:
+
+```tsx
+import { useInactivityTimeout, useWakeLock } from "react-visibility-hooks";
+
+function SessionGuard({ children }: { children: React.ReactNode }) {
+  const { isWarning, isTimedOut, remainingSeconds, resetTimer } = useInactivityTimeout({
+    timeout: 300_000,
+    warningBefore: 60_000,
+    onTimeout: () => logout(),
+  });
+
+  const { request, release } = useWakeLock();
+
+  useEffect(() => {
+    if (isWarning) request();
+    else release();
+  }, [isWarning, request, release]);
+
+  if (isTimedOut) return <Redirect to="/login" />;
+
+  return (
+    <>
+      {children}
+      {isWarning && (
+        <Modal>
+          <p>Session expires in {remainingSeconds}s</p>
+          <button onClick={resetTimer}>Stay logged in</button>
+        </Modal>
+      )}
+    </>
+  );
+}
+```
+
+## Auto-pause video + analytics
+
+Track watch time and pause video when the tab is hidden:
+
+```tsx
+import { useAutoPauseVideo, usePageFocusEffect } from "react-visibility-hooks";
+
+function TrackedVideo({ src }: { src: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const watchStart = useRef(Date.now());
+
+  useAutoPauseVideo(videoRef);
+
+  usePageFocusEffect({
+    onHidden: () => {
+      const watchTime = Date.now() - watchStart.current;
+      analytics.track("video_watch_time", { ms: watchTime });
+    },
+    onVisible: () => {
+      watchStart.current = Date.now();
+    },
+  });
+
+  return <video ref={videoRef} src={src} controls />;
+}
+```
+
+## Idle + visibility for resource management
+
+Tear down expensive resources when the user is both idle and on a hidden tab:
+
+```tsx
+import { useIdleVisibility } from "react-visibility-hooks";
+
+function LiveMap() {
+  const { visible, idle } = useIdleVisibility(30_000);
+  const shouldRender = visible || !idle;
+
+  return shouldRender ? <ExpensiveMapWidget /> : <MapPlaceholder />;
+}
+```

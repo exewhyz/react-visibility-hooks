@@ -1,0 +1,51 @@
+---
+title: useDocVisible – Page Visibility Hook for React
+description: useDocVisible is a lightweight, SSR-safe React hook that detects when the browser tab is visible or hidden using the Page Visibility API. Zero dependencies, TypeScript-first.
+---
+
+## Overview
+
+Returns `true` when the page is visible, `false` when hidden. SSR-safe — defaults to `true` on the server.
+
+This is the foundational hook that most other hooks in this library build upon.
+
+## Usage
+
+```tsx
+import { useDocVisible } from "react-visibility-hooks";
+
+function MyComponent() {
+  const isVisible = useDocVisible();
+
+  return <div>Tab is {isVisible ? "visible" : "hidden"}</div>;
+}
+```
+
+### Pause expensive work
+
+```tsx
+function Dashboard() {
+  const isVisible = useDocVisible();
+
+  useEffect(() => {
+    if (!isVisible) return;
+    const ws = new WebSocket("/live");
+    return () => ws.close();
+  }, [isVisible]);
+
+  return <div>…</div>;
+}
+```
+
+## API
+
+### Parameters
+
+None.
+
+### Returns
+
+| Type      | Description                                          |
+| --------- | ---------------------------------------------------- |
+| `boolean` | `true` when the page is visible, `false` when hidden |
+

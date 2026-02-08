@@ -1,0 +1,65 @@
+---
+title: Installation – react-visibility-hooks
+description: Install react-visibility-hooks via npm, yarn, pnpm, or bun. Supports React 16.8+, TypeScript 4.7+, and all major SSR frameworks including Next.js, Remix, and Gatsby.
+---
+
+## Install
+
+```bash
+npm install react-visibility-hooks
+```
+
+Or with your preferred package manager:
+
+```bash
+# yarn
+yarn add react-visibility-hooks
+
+# pnpm
+pnpm add react-visibility-hooks
+
+# bun
+bun add react-visibility-hooks
+```
+
+## Requirements
+
+- **React** ≥ 16.8.0 (needs Hooks)
+- **TypeScript** ≥ 4.7 (optional, for type inference)
+
+## Quick Start
+
+```tsx
+import { useDocVisible } from "react-visibility-hooks";
+
+function App() {
+  const isVisible = useDocVisible();
+
+  return (
+    <div>
+      <p>Tab is {isVisible ? "visible" : "hidden"}</p>
+    </div>
+  );
+}
+```
+
+## Bundle Impact
+
+The library is tree-shakeable. If you only import `useDocVisible`, only that code ships:
+
+| Import               | Minified + gzipped |
+| -------------------- | ------------------ |
+| `useDocVisible` only | ~200 B             |
+| All 9 hooks          | < 3 kB             |
+
+## ESM & CJS
+
+The package ships dual formats:
+
+```js
+// ESM (default)
+import { useDocVisible } from "react-visibility-hooks";
+
+// CJS
+const { useDocVisible } = require("react-visibility-hooks");
+```

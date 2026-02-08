@@ -1,0 +1,126 @@
+---
+export interface Props {
+  /** The example code for src/App.tsx */
+  code: string;
+  /** Embed height */
+  height?: string;
+  title?: string;
+}
+
+const { code, height = "900px", title = "Live Example" } = Astro.props;
+const containerId = `sb-${Math.random().toString(36).slice(2, 10)}`;
+---
+
+<div class="stackblitz-embed">
+  <p><strong>▶ {title}</strong></p>
+  <div id={containerId} style={`width:100%;height:${height};border-radius:8px;overflow:hidden;`}></div>
+</div>
+
+<script
+  define:vars={{ containerId, code, title }}
+>
+  // @ts-nocheck
+  function loadSdk() {
+    return new Promise((resolve) => {
+      if (window.StackBlitzSDK) return resolve(window.StackBlitzSDK);
+      const s = document.createElement("script");
+      s.src = "https://unpkg.com/@stackblitz/sdk/bundles/sdk.umd.js";
+      s.onload = () => resolve(window.StackBlitzSDK);
+      document.head.appendChild(s);
+    });
+  }
+
+  function boot() {
+    loadSdk().then((sdk) => {
+      sdk.embedProject(
+        containerId,
+        {
+          title,
+          description: "react-visibility-hooks live example",
+          template: "node",
+          files: {
+            "src/App.tsx": code,
+            "src/main.tsx": [
+              'import React from "react";',
+              'import { createRoot } from "react-dom/client";',
+              'import App from "./App";',
+              "",
+              'createRoot(document.getElementById("root")!).render(<App />);',
+            ].join("\n"),
+            "index.html":
+              '<!doctype html><html><head><meta charset="UTF-8" /></head><body><div id="root"></div><script type="module" src="/src/main.tsx"><\/script></body></html>',
+            "package.json": JSON.stringify(
+              {
+                name: "react-visibility-hooks-demo",
+                private: true,
+                type: "module",
+                scripts: { dev: "vite" },
+                dependencies: {
+                  react: "^19.0.0",
+                  "react-dom": "^19.0.0",
+                  "react-visibility-hooks": "latest",
+                },
+                devDependencies: {
+                  "@types/react": "^19.0.0",
+                  "@types/react-dom": "^19.0.0",
+                  "@vitejs/plugin-react": "^4.0.0",
+                  typescript: "^5.0.0",
+                  vite: "^6.0.0",
+                },
+              },
+              null,
+              2,
+            ),
+            "vite.config.ts": [
+              'import { defineConfig } from "vite";',
+              'import react from "@vitejs/plugin-react";',
+              "export default defineConfig({ plugins: [react()] });",
+            ].join("\n"),
+            "tsconfig.json": JSON.stringify(
+              {
+                compilerOptions: {
+                  target: "ES2020",
+                  module: "ESNext",
+                  moduleResolution: "bundler",
+                  jsx: "react-jsx",
+                  strict: true,
+                  esModuleInterop: true,
+                  skipLibCheck: true,
+                },
+                include: ["src"],
+              },
+              null,
+              2,
+            ),
+          },
+        },
+        {
+          openFile: "src/App.tsx",
+          theme: "dark",
+          hideNavigation: false,
+          view: "default",
+          height: "100%",
+        },
+      );
+    });
+  }
+
+  // Run when the element is in the viewport
+  if ("IntersectionObserver" in window) {
+    const el = document.getElementById(containerId);
+    if (el) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            observer.disconnect();
+            boot();
+          }
+        },
+        { rootMargin: "200px" },
+      );
+      observer.observe(el);
+    }
+  } else {
+    boot();
+  }
+</script>

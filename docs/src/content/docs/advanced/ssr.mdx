@@ -1,0 +1,51 @@
+---
+title: SSR Support – Server-Side Rendering Guide
+description: Learn how react-visibility-hooks handles server-side rendering safely. Compatible with Next.js App Router, Pages Router, Remix, Gatsby, and all SSR frameworks.
+---
+
+## Overview
+
+All hooks in this library are **SSR-safe** out of the box. They work correctly with:
+
+- **Next.js** (App Router & Pages Router)
+- **Remix**
+- **Gatsby**
+- **Astro** (with React islands)
+- Any custom SSR setup
+
+## How it works
+
+Every hook checks for the existence of browser APIs (`document`, `window`, `navigator`) before accessing them. On the server, hooks return sensible defaults:
+
+| Hook                     | Server default                                         |
+| ------------------------ | ------------------------------------------------------ |
+| `useDocVisible`          | `true`                                                 |
+| `useIdleVisibility`      | `{ visible: true, idle: false }`                       |
+| `useAutoPauseVideo`      | No-op                                                  |
+| `useSmartPolling`        | Fires initial fetch, no interval                       |
+| `usePageFocusEffect`     | No-op                                                  |
+| `useNetworkAwarePolling` | `isOnline: true`, base interval                        |
+| `useInactivityTimeout`   | `idle: false`, `isWarning: false`, `isTimedOut: false` |
+| `useWakeLock`            | `isSupported: false`, `isActive: false`                |
+| `useBatteryAware`        | `charging: true`, `level: 1`, `isSupported: false`     |
+
+## No `"use client"` needed (but compatible)
+
+The hooks use `useState` and `useEffect`, which are client-side React primitives. In Next.js App Router, you'll need to use them in Client Components:
+
+```tsx
+"use client";
+
+import { useDocVisible } from "react-visibility-hooks";
+
+export function VisibilityIndicator() {
+  const isVisible = useDocVisible();
+  return <span>{isVisible ? "👁" : "💤"}</span>;
+}
+```
+
+The library itself does **not** include a `"use client"` directive — this is intentional so it doesn't force a client boundary higher than necessary.
+
+## Hydration safety
+
+`useDocVisible` syncs the actual visibility state in `useEffect` after hydration, so even if the server-rendered value (`true`) differs from the client's actual state, there's no hydration mismatch.

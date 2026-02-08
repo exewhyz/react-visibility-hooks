@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://exewhyz.github.io/react-visibility-hooks/sitemap-index.xml

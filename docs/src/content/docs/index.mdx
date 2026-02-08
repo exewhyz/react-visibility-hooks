@@ -1,0 +1,50 @@
+---
+title: react-visibility-hooks
+description: Tiny, SSR-safe React hooks for page visibility, idle detection, smart polling, network awareness, wake lock, battery status and more.
+template: splash
+hero:
+  tagline: Zero-dependency React hooks for visibility, idle detection, smart polling, battery, wake lock, and more. Tree-shakeable, SSR-safe, TypeScript-first.
+  actions:
+    - text: Get Started
+      link: /installation/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/exewhyz/react-visibility-hooks
+      icon: external
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+
+## Why react-visibility-hooks?
+
+<CardGrid stagger>
+  <Card title="Zero Dependencies" icon="rocket">
+    No runtime dependencies. Ship less JavaScript to your users.
+  </Card>
+  <Card title="SSR-Safe" icon="approve-check">
+    Works with Next.js (App & Pages Router), Remix, Gatsby, and all SSR frameworks out of
+    the box.
+  </Card>
+  <Card title="Tree-Shakeable" icon="seti:json">
+    Import only the hooks you need — unused hooks are automatically excluded from your
+    bundle.
+  </Card>
+  <Card title="TypeScript-First" icon="seti:typescript">
+    Fully typed with exported interfaces. Great autocomplete and compile-time safety.
+  </Card>
+</CardGrid>
+
+## The Hooks
+
+| Hook                                                          | Description                                      |
+| ------------------------------------------------------------- | ------------------------------------------------ |
+| [`useDocVisible`](/hooks/use-doc-visible/)                    | Is the browser tab visible?                      |
+| [`useIdleVisibility`](/hooks/use-idle-visibility/)            | Page visibility + user idle detection            |
+| [`useAutoPauseVideo`](/hooks/use-auto-pause-video/)           | Auto-pause/resume `<video>` on tab visibility    |
+| [`useSmartPolling`](/hooks/use-smart-polling/)                | Visibility-aware data polling with dedup         |
+| [`usePageFocusEffect`](/hooks/use-page-focus-effect/)         | Callbacks on visibility transitions              |
+| [`useNetworkAwarePolling`](/hooks/use-network-aware-polling/) | Smart polling + network quality awareness        |
+| [`useInactivityTimeout`](/hooks/use-inactivity-timeout/)      | Session timeout with warning countdown           |
+| [`useWakeLock`](/hooks/use-wake-lock/)                        | Prevent screen dimming                           |
+| [`useBatteryAware`](/hooks/use-battery-aware/)                | React to device battery level and charging state |

@@ -1,0 +1,53 @@
+---
+title: useAutoPauseVideo – Auto Pause Video on Tab Switch in React
+description: useAutoPauseVideo automatically pauses and resumes HTML5 video elements when the user switches browser tabs. SSR-safe React hook with zero dependencies.
+---
+
+## Overview
+
+Automatically pauses a `<video>` element when the page becomes hidden and resumes when visible. Only resumes if the video was playing before it was paused by this hook — it won't unexpectedly start a paused video.
+
+## Usage
+
+```tsx
+import { useRef } from "react";
+import { useAutoPauseVideo } from "react-visibility-hooks";
+
+function VideoPlayer() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useAutoPauseVideo(videoRef);
+
+  return <video ref={videoRef} src="/video.mp4" controls />;
+}
+```
+
+### Multiple videos
+
+```tsx
+function MultiVideoPage() {
+  const ref1 = useRef<HTMLVideoElement>(null);
+  const ref2 = useRef<HTMLVideoElement>(null);
+  useAutoPauseVideo(ref1);
+  useAutoPauseVideo(ref2);
+
+  return (
+    <>
+      <video ref={ref1} src="/a.mp4" controls />
+      <video ref={ref2} src="/b.mp4" controls />
+    </>
+  );
+}
+```
+
+## API
+
+### Parameters
+
+| Parameter | Type                                        | Description              |
+| --------- | ------------------------------------------- | ------------------------ |
+| `ref`     | `React.RefObject<HTMLVideoElement \| null>` | Ref to the video element |
+
+### Returns
+
+`void`
+

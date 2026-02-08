@@ -1,0 +1,51 @@
+---
+title: useIdleVisibility – Idle Detection + Visibility Hook for React
+description: useIdleVisibility combines page visibility detection with user idle tracking in a single SSR-safe React hook. Detect inactive users and hidden tabs effortlessly.
+---
+
+## Overview
+
+Combines page-visibility with idle detection. Listens for `mousemove`, `keydown`, `pointerdown`, `scroll`, and `touchstart` events. After `timeout` ms of inactivity the user is marked as idle. The idle timer resets when the tab becomes visible again.
+
+## Usage
+
+```tsx
+import { useIdleVisibility } from "react-visibility-hooks";
+
+function MyComponent() {
+  const { visible, idle } = useIdleVisibility(30_000);
+
+  return (
+    <div>
+      <p>Page visible: {visible ? "yes" : "no"}</p>
+      <p>User idle: {idle ? "yes" : "no"}</p>
+    </div>
+  );
+}
+```
+
+### Pause animations when idle
+
+```tsx
+function AnimatedWidget() {
+  const { idle } = useIdleVisibility(10_000);
+
+  return <div className={idle ? "paused" : "running"}>{/* expensive animation */}</div>;
+}
+```
+
+## API
+
+### Parameters
+
+| Parameter | Type     | Default  | Description                          |
+| --------- | -------- | -------- | ------------------------------------ |
+| `timeout` | `number` | `60_000` | Ms of inactivity before user is idle |
+
+### Returns (`IdleVisibilityResult`)
+
+| Property  | Type      | Description                                           |
+| --------- | --------- | ----------------------------------------------------- |
+| `visible` | `boolean` | Whether the page is currently visible                 |
+| `idle`    | `boolean` | Whether the user is idle (no interaction for timeout) |
+

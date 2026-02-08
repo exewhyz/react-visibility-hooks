@@ -1,0 +1,62 @@
+---
+title: usePageFocusEffect – Run Effects on Tab Focus/Blur in React
+description: usePageFocusEffect runs side-effects when the browser tab gains or loses focus. Perfect for refreshing stale data, pausing animations, or tracking engagement. SSR-safe.
+---
+
+## Overview
+
+Runs callbacks on visibility **transitions** — not on every render. `onVisible` fires on hidden → visible, `onHidden` fires on visible → hidden. The initial render is **not** treated as a transition. `onVisible` may return a cleanup function, just like `useEffect`.
+
+## Usage
+
+```tsx
+import { usePageFocusEffect } from "react-visibility-hooks";
+
+function MyComponent() {
+  usePageFocusEffect({
+    onVisible: () => {
+      console.log("Welcome back! Refetching…");
+      refetchData();
+      return () => console.log("cleanup on next transition");
+    },
+    onHidden: () => {
+      saveScrollPosition();
+    },
+  });
+
+  return <div>…</div>;
+}
+```
+
+### Analytics tracking
+
+```tsx
+usePageFocusEffect({
+  onVisible: () => {
+    analytics.track("tab_returned");
+  },
+  onHidden: () => {
+    analytics.track("tab_left", { duration: getSessionDuration() });
+  },
+});
+```
+
+## API
+
+### Parameters
+
+| Parameter | Type                     | Description   |
+| --------- | ------------------------ | ------------- |
+| `options` | `PageFocusEffectOptions` | Configuration |
+
+### Options (`PageFocusEffectOptions`)
+
+| Option      | Type                         | Description                                              |
+| ----------- | ---------------------------- | -------------------------------------------------------- |
+| `onVisible` | `() => void \| (() => void)` | Fires on hidden → visible. May return a cleanup function |
+| `onHidden`  | `() => void`                 | Fires on visible → hidden                                |
+
+### Returns
+
+`void`
+
