@@ -48,3 +48,19 @@ import { Card, CardGrid } from "@astrojs/starlight/components";
 | [`useInactivityTimeout`](/hooks/use-inactivity-timeout/)      | Session timeout with warning countdown           |
 | [`useWakeLock`](/hooks/use-wake-lock/)                        | Prevent screen dimming                           |
 | [`useBatteryAware`](/hooks/use-battery-aware/)                | React to device battery level and charging state |
+
+## Quick decision guide
+
+- Start with **useDocVisible** when you only need to pause/resume work on tab hide/show.
+- Choose **useSmartPolling** for visibility-aware API polling with deduped updates.
+- Choose **useNetworkAwarePolling** when polling should adapt to offline and slow networks.
+- Use **useInactivityTimeout** for session timeout UX with warning countdowns.
+- Use **useWakeLock** to keep the screen awake during long-running user flows.
+- Use **useBatteryAware** to reduce work and preserve battery on low power.
+
+## Need a hook or found an issue?
+
+- Request a new hook: [Open feature request](https://github.com/exewhyz/react-visibility-hooks/issues/new?labels=enhancement)
+- Report a bug: [Open bug report](https://github.com/exewhyz/react-visibility-hooks/issues/new?labels=bug)
+- Improve docs/examples: [Open documentation issue](https://github.com/exewhyz/react-visibility-hooks/issues/new?labels=documentation)
+- Before opening an issue or PR, read the [Contribution Guide](https://github.com/exewhyz/react-visibility-hooks/blob/main/CONTRIBUTING.md).

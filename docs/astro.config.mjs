@@ -16,11 +16,6 @@ export default defineConfig({
         github: "https://github.com/exewhyz/react-visibility-hooks",
       },
       head: [
-        // Canonical URL
-        {
-          tag: "link",
-          attrs: { rel: "canonical", href: site },
-        },
         // OpenGraph
         {
           tag: "meta",
@@ -29,6 +24,10 @@ export default defineConfig({
         {
           tag: "meta",
           attrs: { property: "og:site_name", content: "react-visibility-hooks" },
+        },
+        {
+          tag: "meta",
+          attrs: { property: "og:url", content: site },
         },
         {
           tag: "meta",
@@ -52,6 +51,14 @@ export default defineConfig({
         },
         {
           tag: "meta",
+          attrs: { name: "twitter:site", content: "@exewhyz" },
+        },
+        {
+          tag: "meta",
+          attrs: { name: "twitter:creator", content: "@exewhyz" },
+        },
+        {
+          tag: "meta",
           attrs: {
             name: "twitter:image",
             content: `${site}/og-image.png`,
@@ -63,7 +70,7 @@ export default defineConfig({
           attrs: {
             name: "keywords",
             content:
-              "react, hooks, visibility, page visibility, idle detection, smart polling, network aware, wake lock, battery, ssr, typescript",
+              "react, react hooks, visibility hooks, page visibility, idle detection, smart polling, network aware polling, wake lock, battery aware, session timeout, online offline, ssr, typescript",
           },
         },
         {

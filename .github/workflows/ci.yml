@@ -27,9 +27,20 @@ jobs:
       - run: npm run build
       - run: npm run size
 
+  bench:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run bench
+
   publish:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: validate
+    needs: [validate, bench]
     runs-on: ubuntu-latest
     environment: npm
     permissions:

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contribution Guide
+    url: https://github.com/exewhyz/react-visibility-hooks/blob/main/CONTRIBUTING.md
+    about: Read contribution rules, local checks, and release-note requirements
+  - name: Documentation Website
+    url: https://visibility-hooks.grettech.com
+    about: Review API docs and examples before opening an issue

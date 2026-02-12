@@ -85,14 +85,35 @@ Docs source lives in `docs/src/content/docs/`. Each hook has its own `.mdx` page
 - Include tests with passing coverage
 - Run `npm run prepublishOnly` before submitting
 - Link any related issues
+- For user-facing changes, add/update `CHANGELOG.md` under `Unreleased`
+
+PRs are pre-populated by `.github/pull_request_template.md` to enforce quality gates and release-note checks.
 
 ## Reporting Bugs
 
 Open an issue with:
+
 - React version
 - Browser + version
 - Minimal reproduction (CodeSandbox / StackBlitz preferred)
 - Expected vs actual behavior
+
+Use the issue links from `README.md` or docs home so labels are prefilled (`bug`, `enhancement`, `documentation`).
+
+## Feature Requests
+
+Open a GitHub issue with the `enhancement` label and include:
+
+- The problem to solve
+- Why existing hooks are insufficient
+- Suggested API shape (options + return values)
+- Real usage context (dashboard, media, auth/session, etc.)
+
+Issue forms are available under `.github/ISSUE_TEMPLATE/` for bugs, features, and docs updates.
+
+## Release Process
+
+Maintainers should follow `.github/RELEASE_CHECKLIST.md` before creating a release tag.
 
 ## Code of Conduct
 

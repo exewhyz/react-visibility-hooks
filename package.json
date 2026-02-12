@@ -60,7 +60,13 @@
     "session-timeout",
     "focus-effect",
     "online-offline",
-    "inactivity"
+    "inactivity",
+    "visibility-hooks",
+    "resource-aware",
+    "offline-first",
+    "react-polling",
+    "page-lifecycle",
+    "foreground-background"
   ],
   "author": "Aniket Raj",
   "license": "MIT",

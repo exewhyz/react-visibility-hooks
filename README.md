@@ -51,6 +51,21 @@ import {
 } from 'react-visibility-hooks';
 ```
 
+## When to use which hook
+
+- **Start with `useDocVisible`** when you only need to pause/resume work based on tab visibility.
+- **Use `useSmartPolling`** for visibility-aware polling with deduped updates.
+- **Use `useNetworkAwarePolling`** when polling should adapt to offline/slow connections.
+- **Use `useInactivityTimeout`** for session expiry and warning countdown UX.
+- **Use `useWakeLock`** to keep screens awake during meetings, media, or kiosk flows.
+- **Use `useBatteryAware`** to reduce work on low battery and improve perceived performance.
+
+## More examples
+
+- [Combining hooks for adaptive behavior](https://visibility-hooks.grettech.com/advanced/combining-hooks/)
+- [SSR behavior and defaults](https://visibility-hooks.grettech.com/advanced/ssr/)
+- [Hook-by-hook API guides](https://visibility-hooks.grettech.com/)
+
 ## Hooks
 
 ### `useDocVisible`
@@ -515,6 +530,13 @@ function Feed() {
   return <FeedList items={data} />;
 }
 ```
+
+## Feedback and requests
+
+- Need a new hook? Open a feature request: [New Feature](https://github.com/exewhyz/react-visibility-hooks/issues/new?labels=enhancement)
+- Found a bug? Report it here: [Bug Report](https://github.com/exewhyz/react-visibility-hooks/issues/new?labels=bug)
+- Want to improve docs/examples? Open a docs issue: [Docs Improvement](https://github.com/exewhyz/react-visibility-hooks/issues/new?labels=documentation)
+- Before opening any issue or PR, please read [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Contributing
 
