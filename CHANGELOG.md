@@ -28,6 +28,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Planned for `v3.1.0`: edge-case timer drift handling in `useInactivityTimeout` countdown updates.
 
+## [3.0.1] - 2026-02-12
+
+### Added
+
+- GitHub issue templates for bug reports, feature requests, and docs improvements.
+- Pull request template with required quality gates (tests/coverage/lint/typecheck/size/bench/docs/changelog).
+- Maintainer release checklist at `.github/RELEASE_CHECKLIST.md`.
+
+### Changed
+
+- CI now enforces benchmark execution on every PR before publish gating.
+- Discoverability improved via expanded npm keywords and stronger README examples/decision guidance.
+- Contribution flow now routes through `CONTRIBUTING.md` from README and docs homepage CTAs.
+- Docs SEO metadata refreshed in `docs/astro.config.mjs` (Open Graph/Twitter updates and keyword refresh).
+
+### Fixed
+
+- README Quick Start code fence rendering issue.
+
 ## [3.0.0] - 2026-02-08
 
 ### Added
